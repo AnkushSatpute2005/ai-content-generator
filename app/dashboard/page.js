@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
 import { useState } from 'react'
-// import SearchSection from './_components/SearchSection'
-// import TemplateSection from './_components/TemplateSection'
+import SearchSection from './_components/SearchSection'
+import TemplateSection from './_components/TemplateSection'
 
 const Dashboard = () => {
 
@@ -11,9 +11,9 @@ const Dashboard = () => {
   return (
     <div>
       {/* search section */}
-      {/* <SearchSection onSearchInput={(value)=>{setUserSearchInput(value)}}/> */}
+      <SearchSection onSearchInput={(value)=>{setUserSearchInput(value)}}/>
       {/* Template list ssection */}
-      {/* <TemplateSection userSearchInput ={userSearchInput}/> */}
+      <TemplateSection userSearchInput ={userSearchInput}/>
 
     </div>
   )
