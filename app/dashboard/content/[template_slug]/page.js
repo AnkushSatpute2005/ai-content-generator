@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import FormSection from "../_component/FormSection";
 import OutputSection from "../_component/OutputSection";
 import Templates from "@/app/(data)/Templates";
@@ -8,29 +8,36 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { chatSession } from "@/utils/AiModal";
-import { useState } from "react";
-// import { db } from "@/lib/db";
+import connectToDatabase from "@/lib/mongodb";
+import AiOutPut from "@/lib/models/AiOutPut";
 
 const CreateNewContent = () => {
   const { template_slug } = useParams();
-  // console.log("template_slug:", template_slug);
-
   const selectedTemplate = Templates.find(
     (item) => item.slug === template_slug
   );
-  // console.log("selectedTemplate:", selectedTemplate );
 
   const [loading, setLoading] = useState(false);
-  const [aiOutput, setAiOutput] = useState('');
+  const [aiOutput, setAiOutput] = useState("");
 
   const GenerateAiContent = async (formData) => {
     try {
       setLoading(true);
+
+      // Combine the user input with the AI template
       const SelectedPrompt = selectedTemplate.aiPrompt;
       const FinalAiPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
+
+      // Send the prompt to the AI model and get the response
       const result = await chatSession.sendMessage(FinalAiPrompt);
-      const responseAiText = result.response.text();
+      const responseAiText = await result.response.text(); // Make sure this is async if needed
+
+      // Set the AI output in state
       setAiOutput(responseAiText);
+
+      // Save the output in the database
+      await saveInDb(formData, responseAiText); // Pass responseAiText directly here
+
     } catch (error) {
       console.error("Error generating AI content:", error);
     }
@@ -38,16 +45,26 @@ const CreateNewContent = () => {
     setLoading(false);
   };
 
-  const saveInDb= async() => {
-    // const result = db.insert(UserSchema).Values
-  }
-  
+  const saveInDb = async (formData, aiOutput) => {
+    try {
+      await connectToDatabase();
+
+      const newData = new AiOutPut({
+        aiOutput: aiOutput, // Save the AI output text
+        formData: formData, // Save the form data sent by the user
+      });
+
+      await newData.save();
+      console.log("AI output inserted successfully!");
+    } catch (error) {
+      console.error("Error inserting AI output:", error);
+    }
+  };
 
   return (
     <div className="p-10">
-      <Link href={"/dashboard"}>
+      <Link href="/dashboard">
         <Button>
-          {" "}
           <IoMdArrowRoundBack /> Back
         </Button>
       </Link>
@@ -61,7 +78,7 @@ const CreateNewContent = () => {
         />
 
         <div className="col-span-2">
-            <OutputSection aiOutput={aiOutput}/>
+          <OutputSection aiOutput={aiOutput} />
         </div>
       </div>
     </div>
