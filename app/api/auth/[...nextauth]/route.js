@@ -2,6 +2,7 @@ import mongoose from "mongoose"
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import User from "@/lib/models/User";
+import connectToDatabase from "@/lib/mongodb";
 
 export const authOptions = NextAuth({
   // Configure one or more authentication providers
@@ -31,9 +32,10 @@ export const authOptions = NextAuth({
   
         try {
           // Check if we're already connected to MongoDB
-          if (mongoose.connection.readyState === 0) {
-            await mongoose.connect('mongodb://localhost:27017/yourDatabaseName');
-          }
+          // if (mongoose.connection.readyState === 0) {
+          //   await mongoose.connect('mongodb://localhost:27017/yourDatabaseName');
+          // }
+          await connectToDatabase();
   
           // Find the user in the database by email
           let currentUser = await User.findOne({ email: profile.email });
