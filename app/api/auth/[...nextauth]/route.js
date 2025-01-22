@@ -35,7 +35,8 @@ export const authOptions = NextAuth({
           // if (mongoose.connection.readyState === 0) {
           //   await mongoose.connect('mongodb://localhost:27017/yourDatabaseName');
           // }
-          await connectToDatabase();
+          // await connectToDatabase();
+          await mongoose.connect('mongodb://localhost:27017/AiContentGenerator');
   
           // Find the user in the database by email
           let currentUser = await User.findOne({ email: profile.email });
@@ -51,6 +52,8 @@ export const authOptions = NextAuth({
           } else {
             user.name = currentUser.userName; // Use existing user data
           }
+
+          await mongoose.disconnect();
         } catch (error) {
           console.error('Error in signIn callback:', error);
           return false; // Deny access on error
@@ -61,6 +64,7 @@ export const authOptions = NextAuth({
     },
   }
 
+  
 
   
 })
