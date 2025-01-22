@@ -4,8 +4,6 @@ import AiOutput from "@/lib/models/AiOutput";
 
 export async function POST(req) {
   try {
-    console.log("API /api/saveOutput called");
-
     // Parse the request body
     const { formData, aiOutput } = await req.json();
 
