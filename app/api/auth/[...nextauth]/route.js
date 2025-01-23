@@ -62,6 +62,9 @@ export const authOptions = NextAuth({
   
       return true;  // Allow sign-in
     },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl
+    // },
   }
 
   

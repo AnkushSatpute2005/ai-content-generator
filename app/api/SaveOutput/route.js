@@ -5,9 +5,8 @@ import AiOutput from "@/lib/models/AiOutput";
 export async function POST(req) {
   try {
     // Parse the request body
-    const { formData, aiOutput } = await req.json();
-
-    if (!formData || !aiOutput) {
+    const { formData, aiOutput,slug } = await req.json();
+    if (!formData || !aiOutput||!slug) {
       console.error("Missing formData or aiOutput");
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -18,7 +17,7 @@ export async function POST(req) {
     await mongoose.connect("mongodb://localhost:27017/AiContentGenerator");
 
     // Create and save data to MongoDB
-    const newData = new AiOutput({ formData, aiOutput });
+    const newData = new AiOutput({ formData, aiOutput,slug });
     await newData.save();
 
     return NextResponse.json(

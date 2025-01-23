@@ -31,7 +31,7 @@ const FormSection = ({ selectedTemplate,userFormInput,loading }) => {
         width={70}
         height={70}
       />
-      <h2 className="font-bold text-2xl md-2 text-primary">
+      <h2 className="font-bold text-2xl md-2 text-pink-600">
         {selectedTemplate?.name}
       </h2>
       <p className="text-gray-500 text-sm">{selectedTemplate.desc}</p>

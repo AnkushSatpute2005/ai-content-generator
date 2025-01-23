@@ -33,8 +33,9 @@ const CreateNewContent = () => {
       // Set the AI output in state
       setAiOutput(responseAiText);
 
+      
       // Save the output in the database
-      await saveInDb(formData, responseAiText); // Pass responseAiText directly here
+      await saveInDb(formData, responseAiText,selectedTemplate.name); // Pass responseAiText directly here
 
     } catch (error) {
       console.error("Error generating AI content:", error);
@@ -43,32 +44,13 @@ const CreateNewContent = () => {
     setLoading(false);
   };
 
-  // const saveInDb = async (formData, aiOutput) => {
-  //   try {
-  //     await mongoose.connect('mongodb://localhost:27017/AiContentGenerator');
+ 
 
-  //     const newData = new AiOutPut({
-  //       aiOutput: aiOutput, // Save the AI output text
-  //       formData: formData, // Save the form data sent by the user
-  //     });
-
-  //     await newData.save();
-  //     console.log("AI output inserted successfully!");
-  //     await mongoose.disconnect();
-  //     console.log("Conection closed");
-  //   } catch (error) {
-  //     console.error("Error inserting AI output:", error);
-  //   }
-  // };
-
-  const saveInDb = async (formData, aiOutput) => {
+  const saveInDb = async (formData, aiOutput,slug) => {
     try {
-      await fetch("/api/SaveOutput", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ aiOutput,formData }),
+         await fetch("/api/SaveOutput", {method: "POST",headers: {"Content-Type": "application/json",},
+         body: JSON.stringify({ aiOutput, formData, slug }),
+         
       });
     } catch (error) {
       console.error("Error saving AI output:", error);
