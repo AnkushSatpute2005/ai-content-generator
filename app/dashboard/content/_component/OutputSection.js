@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import '@toast-ui/editor/dist/toastui-editor.css';
 
@@ -33,10 +34,6 @@ const OutputSection = ({aiOutput}) => {
     height="600px"
     initialEditType="wysiwyg"
     useCommandShortcut={true}
-    // onChange={() => {
-    //   // console.log(editorRef.current.getInstance().getMarkdown())
-    // }
-    // }
   />
     </div>
   )

@@ -5,7 +5,7 @@ import React from 'react'
 const WelcomPage = () => {
     return (
         
-          <div className='bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 h-fit w-screen text-white flex flex-col justify-center items-center' >
+          <div className='bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800  h-fit w-screen text-white flex flex-col justify-center items-center' >
             {/* <h2 className='font-bold text-3xl'>Welcom</h2>
             <h3 className='font-bold text-3xl p-3'>to</h3> */}
             <h1 className='font-bold lg:text-8xl p-5 m-10 sm:text-4xl'>AI Containtent Generator</h1>

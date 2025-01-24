@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import User from "@/lib/models/User";
-import connectToDatabase from "@/lib/mongodb";
+// import connectToDatabase from "@/lib/mongodb";
 
 export const authOptions = NextAuth({
   // Configure one or more authentication providers
@@ -36,7 +36,7 @@ export const authOptions = NextAuth({
           //   await mongoose.connect('mongodb://localhost:27017/yourDatabaseName');
           // }
           // await connectToDatabase();
-          await mongoose.connect('mongodb://localhost:27017/AiContentGenerator');
+          await mongoose.connect(process.env.DATABASE_URL);
   
           // Find the user in the database by email
           let currentUser = await User.findOne({ email: profile.email });

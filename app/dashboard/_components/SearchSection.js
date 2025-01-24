@@ -3,7 +3,7 @@ import React from 'react'
 
 const SearchSection = ({onSearchInput}) => {
   return (
-    <div className='p-10 bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 flex flex-col items-center justify-center '>
+    <div className='p-10 bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800  flex flex-col items-center justify-center '>
         {/* bg-gradient-to-br :- means the color is given from top-right (tr) to bottom-right this is thr tailwind css utility class */}
         <h2 className='text-3xl font-bold text-white'>Browse All Tmplates</h2>
         <p className='text-white'>What would you like to creat today?</p>
