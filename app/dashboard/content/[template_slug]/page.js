@@ -12,7 +12,7 @@ import { useSession, } from "next-auth/react";
 
 const CreateNewContent = () => {
     const { data: session,status } = useSession();
-   console.log(session?.user?.name);
+  //  console.log(session?.user?.name);
 
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
