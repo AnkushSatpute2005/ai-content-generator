@@ -5,7 +5,7 @@ import AiOutput from "@/lib/models/AiOutput";
 export async function POST(req) {
   try {
     // Parse the request body
-    const { formData, aiOutput,slug,user} = await req.json();
+    const { formData, aiOutput,slug} = await req.json();
     // console.log("Check.........",{ aiOutput, formData, slug })
     if (!formData || !aiOutput||!slug) {
       console.error("Missing formData or aiOutput");
@@ -18,7 +18,7 @@ export async function POST(req) {
     await mongoose.connect(process.env.DATABASE_URL);
 
     // Create and save data to MongoDB
-    const newData = new AiOutput({ formData, aiOutput,slug,user });
+    const newData = new AiOutput({ formData, aiOutput,slug });
     // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",{ formData, aiOutput,slug,user })
     await newData.save();
 

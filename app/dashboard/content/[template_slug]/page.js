@@ -8,11 +8,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { chatSession } from "@/utils/AiModal";
-import { useSession } from "next-auth/react";
+import { useSession, } from "next-auth/react";
 
 const CreateNewContent = () => {
-    const { data: session } = useSession();
-  //  console.log(session);
+    const { data: session,status } = useSession();
+   console.log(session?.user?.name);
 
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
@@ -38,7 +38,7 @@ const CreateNewContent = () => {
       setAiOutput(responseAiText);
 
       // Save the output in the database
-      await saveInDb(formData, responseAiText,selectedTemplate.slug,session.user.name); // Pass responseAiText directly here
+      await saveInDb(formData, responseAiText,selectedTemplate.slug); // Pass responseAiText directly here
 
     } catch (error) {
       console.error("Error generating AI content:", error);
@@ -49,11 +49,11 @@ const CreateNewContent = () => {
 
  
 
-  const saveInDb = async (formData, aiOutput,slug,user) => {
+  const saveInDb = async (formData, aiOutput,slug) => {
     try {
         //  console.log("Check only",{ aiOutput, formData, slug })
          await fetch("/api/SaveOutput", {method: "POST",headers: {"Content-Type": "application/json",},
-         body: JSON.stringify({ aiOutput, formData, slug ,user}),
+         body: JSON.stringify({ aiOutput, formData, slug}),
          
       });
     } catch (error) {

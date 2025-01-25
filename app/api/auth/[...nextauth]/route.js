@@ -62,6 +62,13 @@ export const authOptions = NextAuth({
   
       return true;  // Allow sign-in
     },
+    // async jwt({ token, user }) {
+    //   if (user) {
+    //     token.id = user.id; // Add user ID to token
+    //     token.role = user.role; // Add role if needed
+    //   }
+    //   return token;
+    // },
     // async redirect({ url, baseUrl }) {
     //   return baseUrl
     // },
