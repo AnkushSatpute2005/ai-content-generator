@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"; 
 import mongoose from "mongoose";
 import AiOutput from "@/lib/models/AiOutput";
+// import connectToDatabase from "@/lib/db";
+import dbConnect from "@/lib/db";
 
 export async function POST(req) {
   try {
@@ -15,12 +17,16 @@ export async function POST(req) {
       );
     }
  
-    await mongoose.connect(process.env.DATABASE_URL);
+    // await mongoose.connect(process.env.DATABASE_URL);
+    await dbConnect();
 
     // Create and save data to MongoDB
     const newData = new AiOutput({ formData, aiOutput,slug });
     // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",{ formData, aiOutput,slug,user })
     await newData.save();
+
+    // const item = await AiOutput.find({});
+    // console.log(item)
 
     return NextResponse.json(
       { message: "Data saved successfully" },
@@ -35,5 +41,6 @@ export async function POST(req) {
   } finally {
     // Disconnect from DB
     await mongoose.disconnect();
+    // mongoose.connection.close()
   }
 }

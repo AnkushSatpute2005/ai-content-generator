@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import User from "@/lib/models/User";
-// import connectToDatabase from "@/lib/mongodb";
+import dbConnect from "@/lib/db";
 
 export const authOptions = NextAuth({
   // Configure one or more authentication providers
@@ -36,7 +36,8 @@ export const authOptions = NextAuth({
           //   await mongoose.connect('mongodb://localhost:27017/yourDatabaseName');
           // }
           // await connectToDatabase();
-          await mongoose.connect(process.env.DATABASE_URL);
+          // await mongoose.connect(process.env.DATABASE_URL);
+          await dbConnect();
   
           // Find the user in the database by email
           let currentUser = await User.findOne({ email: profile.email });
@@ -54,6 +55,7 @@ export const authOptions = NextAuth({
           }
 
           await mongoose.disconnect();
+          // mongoose.connection.close()
         } catch (error) {
           console.error('Error in signIn callback:', error);
           return false; // Deny access on error
