@@ -66,19 +66,20 @@ export const authOptions = NextAuth({
     },
     // async jwt({ token, user }) {
     //   if (user) {
-    //     token.id = user.id; // Add user ID to token
-    //     token.role = user.role; // Add role if needed
+    //     token.id = user.id;
+    //     token.email = user.email;
+    //     console.log(user);
     //   }
     //   return token;
     // },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl
+    // async session({ session, token }) {
+    //   if (token) {
+    //     session.user.id = token.id; // Attach user ID to the session
+    //     session.user.email = token.email; // Attach user email
+    //   }
+    //   return session;
     // },
-  }
-
-  
-
-  
+  }  
 })
 
 

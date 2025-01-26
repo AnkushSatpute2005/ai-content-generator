@@ -12,7 +12,11 @@ import { useSession, } from "next-auth/react";
 
 const CreateNewContent = () => {
     const { data: session,status } = useSession();
-  //  console.log(session?.user?.name);
+  // if(session) {
+
+  //   console.log(">>>>>>>>>>>>>>>>>>>>>>",session.user.email);
+    
+  // }
 
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
@@ -38,7 +42,7 @@ const CreateNewContent = () => {
       setAiOutput(responseAiText);
 
       // Save the output in the database
-      await saveInDb(formData, responseAiText,selectedTemplate.slug); // Pass responseAiText directly here
+      await saveInDb(formData, responseAiText,selectedTemplate.slug,selectedTemplate.name,selectedTemplate.icon); // Pass responseAiText directly here
 
     } catch (error) {
       console.error("Error generating AI content:", error);
@@ -49,11 +53,11 @@ const CreateNewContent = () => {
 
  
 
-  const saveInDb = async (formData, aiOutput,slug) => {
+  const saveInDb = async (formData, aiOutput,slug,name,image) => {
     try {
         //  console.log("Check only",{ aiOutput, formData, slug })
          await fetch("/api/SaveOutput", {method: "POST",headers: {"Content-Type": "application/json",},
-         body: JSON.stringify({ aiOutput, formData, slug}),
+         body: JSON.stringify({ aiOutput, formData, slug,name,image}),
          
       });
     } catch (error) {
