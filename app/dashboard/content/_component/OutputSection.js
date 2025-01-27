@@ -25,7 +25,7 @@ const OutputSection = ({aiOutput}) => {
     <div className='bg-white shadow-lg border rounded-lg'>
       <div className='flex justify-between items-center p-5'>
         <h2 className='font-medium text-lg'>Your Result</h2>
-        <Button> <LuCopy /> Copy </Button>
+        <Button onClick={()=>(navigator.clipboard.writeText(aiOutput))}> <LuCopy /> Copy </Button>
       </div>
        <Editor
        ref={editorRef}

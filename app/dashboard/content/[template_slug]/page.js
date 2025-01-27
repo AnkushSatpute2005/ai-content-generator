@@ -8,16 +8,16 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { chatSession } from "@/utils/AiModal";
-import { useSession, } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
 
 const CreateNewContent = () => {
-    const { data: session,status } = useSession();
-  // if(session) {
 
-  //   console.log(">>>>>>>>>>>>>>>>>>>>>>",session.user.email);
-    
-  // }
+  const router = useRouter();
 
+  const {usage, setUsage} = useContext(TotalUsageContext)
+  
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
     (item) => item.slug === template_slug
@@ -27,6 +27,11 @@ const CreateNewContent = () => {
   const [aiOutput, setAiOutput] = useState("");
 
   const GenerateAiContent = async (formData) => {
+    if(usage>=10000){
+      alert("Please Upgrade")
+      router.push('/dashboard/billing')
+      return;
+    }
     try {
       setLoading(true);
 

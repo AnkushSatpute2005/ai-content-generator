@@ -8,14 +8,7 @@ import dbConnect from "@/lib/db";
 // import { useSession } from "next-auth/react";
 
 export async function POST(req) {
-  // const session = await getServerSession(authOptions);
-  // if (!session || !session.user) {
-  //   return NextResponse.json(
-  //     { error: "Not authenticated" },
-  //     { status: 401 }
-  //   );
-  // }
-  //   console.log(session)
+  
   try {
     // Parse the request body
     const { formData, aiOutput,slug,name,image} = await req.json();
@@ -39,11 +32,8 @@ export async function POST(req) {
        aiOutput,
        slug, 
       });
-    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",{ formData, aiOutput,slug })
+   
     await newData.save();
-
-    // const item = await AiOutput.find({});
-    // console.log(item)
 
     return NextResponse.json(
       { message: "Data saved successfully" },

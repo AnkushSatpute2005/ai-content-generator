@@ -54,7 +54,16 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		  animation: {
+			pulseRed: "pulseRed 2s infinite", // Custom animation for red
+		  },
+		  keyframes: {
+			pulseRed: {
+			  "0%, 100%": { backgroundColor: "rgb(186, 28, 28)" }, // Dark red (e.g., rgb(186, 28, 28))
+			  "50%": { backgroundColor: "rgb(255, 99, 71)" }, // Lighter red (e.g., rgb(255, 99, 71))
+			},
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],

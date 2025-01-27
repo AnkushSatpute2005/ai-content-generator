@@ -64,21 +64,6 @@ export const authOptions = NextAuth({
   
       return true;  // Allow sign-in
     },
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     token.id = user.id;
-    //     token.email = user.email;
-    //     console.log(user);
-    //   }
-    //   return token;
-    // },
-    // async session({ session, token }) {
-    //   if (token) {
-    //     session.user.id = token.id; // Attach user ID to the session
-    //     session.user.email = token.email; // Attach user email
-    //   }
-    //   return session;
-    // },
   }  
 })
 
