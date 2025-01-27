@@ -9,7 +9,7 @@ const History = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [aiOutputLen, setAiOutputLen] = useState(0)
+  const [aiOutputLen, setAiOutputLen] = useState(0);
 
   const getData = async () => {
     setLoading(true);
@@ -26,7 +26,7 @@ const History = () => {
       setError(error.message);
     } finally {
       setLoading(false);
-      data.map((item)=>(setAiOutputLen(aiOutputLen+item.aiOutput.length)))
+      data.map((item) => setAiOutputLen(aiOutputLen + item.aiOutput.length));
       // console.log(aiOutputLen)
     }
   };
@@ -43,71 +43,47 @@ const History = () => {
   return (
     <div className="h-screen p-5">
       <div className="flex justify-between items-center p-2">
-        <div>
-        <h1 className="text-3xl font-bold">History</h1>
-        <p className="text-gray-500">Search your previously generated AI content</p>
-        </div>
-        <Button onClick={getData} disabled={loading}>{loading&&<Loader2Icon className="animate-spin"/>}Refresh Data</Button>
+        
         {/* <button onClick={getData}>Refresh Data</button> */}
       </div>
-      <div className="relative shadow-md sm:rounded-lg p-5 bg-gray-300">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-          {/* border-separate is used to enable space between table rows */}
-          <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
-            <tr className="text-center rounded-sm">
-              <th scope="col" className="px-6 py-3">
-                TEMPLATE
-              </th>
-              <th scope="col" className="px-6 py-3">
-                AI RESPONSE
-              </th>
-              <th scope="col" className="px-6 py-3">
-                DATE
-              </th>
-              <th scope="col" className="px-6 py-3">
-                WORDS
-              </th>
-              <th scope="col" className="px-6 py-3">
-                EDITS
-              </th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {data.map((item) => (
-              
-              <tr
-                key={item._id}
-                className="bg-white border-b dark:border-gray-700 border-gray-200 dark:hover:bg-gray-600 "
-              >
-                <th
-                  scope="row"
-                  className="p-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white h-32 flex flex-row justify-center items-center gap-2"
-                >
-                  <Image src={item.image} alt="image" height={30} width={30} />
-                  {item.name}
-                </th>
-                <td className="px-6 py-4 max-h-24 overflow-hidden">
-                  {item.aiOutput}
-                </td>
-                <td className="px-6 py-4">{formatDate(item.createdAt)}</td>
-                <td className="px-6 py-4"> {item.aiOutput.length}</td>
-                <td className="px-6 py-4 text-right">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-             
-            ))}
-             
-          </tbody>
-        </table>
-      </div>
+     
+      <table>
+        <thead >
+          <tr className="flex justify-between items-center p-2">
+            <td>
+              <h1 className="text-3xl font-bold">History</h1>
+              <p className="text-gray-500">
+                Search your previously generated AI content
+              </p>
+            </td>
+            <td>
+              <Button onClick={getData} disabled={loading}>
+              {loading && <Loader2Icon className="animate-spin" />}Refresh Data
+              </Button>
+            </td>        
+          </tr>
+        
+        </thead>
+        <tbody className="flex flex-col bg-gray-300 p-4 rounded-lg shadow-md">
+          <tr className="flex flex-row  items-center text-gray-700 text-sm font-bold uppercase">
+            <td className="m-4 w-2/5"> Template</td>
+            <td className="m-4  line-clamp-3 w-3/5">Ai Responce</td>
+            <td className="m-4 w-1/5">Date</td>
+            <td className="m-4 w-1/5 ">Words</td>
+            <td className="m-4 w-1/5">Edit</td>
+          </tr>
+          {data.map((item)=>(
+            <tr key={item._id} className="flex flex-row justify-center items-center bg-white hover:bg-gray-100 font-semibold">
+            <td className="m-4 text-gray-400 w-2/5 flex items-center gap-2"> <Image src={item.image} alt="image" height={30} width={30} />{item.name}</td>
+            <td className="m-4 text-gray-400  line-clamp-3 w-3/5">{item.aiOutput}</td>
+            <td className="m-4 text-gray-400 w-1/5">{formatDate(item.createdAt)}</td>
+            <td className="m-4 text-gray-400 w-1/5 "> {item.aiOutput.length}</td>
+            <td className="m-4 text-gray-400 w-1/5">Edit</td>
+          </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-   
   );
 };
 
