@@ -46,8 +46,7 @@ const History = () => {
         
         {/* <button onClick={getData}>Refresh Data</button> */}
       </div>
-     
-      <table>
+     {!loading&&<table>
         <thead >
           <tr className="flex justify-between items-center p-2">
             <td>
@@ -77,12 +76,13 @@ const History = () => {
             <td className="m-4 text-gray-400 w-2/5 flex items-center gap-2"> <Image src={item.image} alt="image" height={30} width={30} />{item.name}</td>
             <td className="m-4 text-gray-400  line-clamp-3 w-3/5">{item.aiOutput}</td>
             <td className="m-4 text-gray-400 w-1/5">{formatDate(item.createdAt)}</td>
-            <td className="m-4 text-gray-400 w-1/5 "> {item.aiOutput.length}</td>
+            <td className="m-4 text-gray-400 w-1/5 "> {item.aiOutput.length} W</td>
             <td className="m-4 text-gray-400 w-1/5">Edit</td>
           </tr>
           ))}
         </tbody>
-      </table>
+      </table>}
+      
     </div>
   );
 };
