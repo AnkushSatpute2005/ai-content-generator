@@ -11,21 +11,27 @@ export async function POST(req) {
   
   try {
     // Parse the request body
-    const { formData, aiOutput,slug,name,image} = await req.json();
+    const { formData, aiOutput,slug,name,image,email} = await req.json();
    
-    if (!formData || !aiOutput||!slug||!name||!image) {
+    if (!formData || !aiOutput||!slug||!name||!image||!email) {
       console.error("Missing formData or aiOutput");
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
+    // if (!email) {
+    //   return res.status(400).json({ message: "Email is required" });
+    // }else{
+    //   console.log("Email is present" ,email)
+    // }
  
     // await mongoose.connect(process.env.DATABASE_URL);
     await dbConnect();
 
     // Create and save data to MongoDB
     const newData = new AiOutput({ 
+      email,
        name,
        image,
        formData,

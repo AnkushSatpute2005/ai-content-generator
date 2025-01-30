@@ -11,9 +11,13 @@ import { chatSession } from "@/utils/AiModal";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const CreateNewContent = () => {
-
+  const { data: session } = useSession()
+  // if(session){
+  //   console.log(session.user.email)
+  // }
   const router = useRouter();
 
   const {usage, setUsage} = useContext(TotalUsageContext)
@@ -45,9 +49,14 @@ const CreateNewContent = () => {
 
       // Set the AI output in state
       setAiOutput(responseAiText);
-
+      const email = session.user?.email;
+      // if(!email){
+      //   console.log("Empty")
+      // }else{
+      //   console.log("Not Empty")
+      // }
       // Save the output in the database
-      await saveInDb(formData, responseAiText,selectedTemplate.slug,selectedTemplate.name,selectedTemplate.icon); // Pass responseAiText directly here
+      await saveInDb(formData, responseAiText,selectedTemplate.slug,selectedTemplate.name,selectedTemplate.icon,email); // Pass responseAiText directly here
 
     } catch (error) {
       console.error("Error generating AI content:", error);
@@ -58,11 +67,12 @@ const CreateNewContent = () => {
 
  
 
-  const saveInDb = async (formData, aiOutput,slug,name,image) => {
+  const saveInDb = async (formData, aiOutput,slug,name,image,email) => {
     try {
         //  console.log("Check only",{ aiOutput, formData, slug })
+        // console.log(email)
          await fetch("/api/SaveOutput", {method: "POST",headers: {"Content-Type": "application/json",},
-         body: JSON.stringify({ aiOutput, formData, slug,name,image}),
+         body: JSON.stringify({ aiOutput, formData, slug,name,image,email}),
          
       });
     } catch (error) {
