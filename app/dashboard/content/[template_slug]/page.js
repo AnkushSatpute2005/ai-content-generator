@@ -11,17 +11,17 @@ import { chatSession } from "@/utils/AiModal";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const CreateNewContent = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   // if(session){
   //   console.log(session.user.email)
   // }
   const router = useRouter();
 
-  const {usage, setUsage} = useContext(TotalUsageContext)
-  
+  const { usage, setUsage } = useContext(TotalUsageContext);
+
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
     (item) => item.slug === template_slug
@@ -31,9 +31,9 @@ const CreateNewContent = () => {
   const [aiOutput, setAiOutput] = useState("");
 
   const GenerateAiContent = async (formData) => {
-    if(usage>=10000){
-      alert("Please Upgrade")
-      router.push('/dashboard/billing')
+    if (usage >= 10000) {
+      alert("Please Upgrade");
+      router.push("/dashboard/billing");
       return;
     }
     try {
@@ -50,14 +50,14 @@ const CreateNewContent = () => {
       // Set the AI output in state
       setAiOutput(responseAiText);
       const email = session.user?.email;
-      // if(!email){
-      //   console.log("Empty")
-      // }else{
-      //   console.log("Not Empty")
-      // }
-      // Save the output in the database
-      await saveInDb(formData, responseAiText,selectedTemplate.slug,selectedTemplate.name,selectedTemplate.icon,email); // Pass responseAiText directly here
-
+      await saveInDb(
+        formData,
+        responseAiText,
+        selectedTemplate.slug,
+        selectedTemplate.name,
+        selectedTemplate.icon,
+        email
+      ); // Pass responseAiText directly here
     } catch (error) {
       console.error("Error generating AI content:", error);
     }
@@ -65,21 +65,17 @@ const CreateNewContent = () => {
     setLoading(false);
   };
 
- 
-
-  const saveInDb = async (formData, aiOutput,slug,name,image,email) => {
+  const saveInDb = async (formData, aiOutput, slug, name, image, email) => {
     try {
-        //  console.log("Check only",{ aiOutput, formData, slug })
-        // console.log(email)
-         await fetch("/api/SaveOutput", {method: "POST",headers: {"Content-Type": "application/json",},
-         body: JSON.stringify({ aiOutput, formData, slug,name,image,email}),
-         
+      await fetch("/api/SaveOutput", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ aiOutput, formData, slug, name, image, email }),
       });
     } catch (error) {
       console.error("Error saving AI output:", error);
     }
   };
-  
 
   return (
     <div className="p-10">
