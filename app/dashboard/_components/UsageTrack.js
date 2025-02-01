@@ -1,15 +1,23 @@
 "use client";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
+import { UpdateCreditContext, UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect, useContext } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 
 const UsageTrack = () => {
   const { usage, setUsage } = useContext(TotalUsageContext);
+  // const [useUpdateCreditUsageContext, setUseUpdateCreditUsageContext] = useState(UpdateCreditUsageContext)
+  const [updateCreditContext, setUpdateCreditContext] = useState(UpdateCreditContext)
+
+  // useEffect(() => {
+  //   getData();
+  // }, [usage]);
 
   useEffect(() => {
-    getData();
-  }, [usage]);
+    getData()
+  }, [updateCreditContext&&usage])
+  
 
   const getData = async () => {
     try {

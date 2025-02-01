@@ -12,15 +12,16 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
 import { useSession, signIn, signOut } from "next-auth/react";
+// import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
+import { UpdateCreditContext } from "@/app/(context)/UpdateCreditUsageContext";
+
 
 const CreateNewContent = () => {
   const { data: session } = useSession();
-  // if(session){
-  //   console.log(session.user.email)
-  // }
   const router = useRouter();
-
   const { usage, setUsage } = useContext(TotalUsageContext);
+//  const [useUpdateCreditUsageContext, setUseUpdateCreditUsageContext] = useState(UpdateCreditUsageContext)
+const [updateCreditContext, setUpdateCreditContext] = useState(UpdateCreditContext)
 
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
@@ -63,6 +64,8 @@ const CreateNewContent = () => {
     }
 
     setLoading(false);
+    setUpdateCreditContext(Date.now());
+    // console.log(Date.now())
   };
 
   const saveInDb = async (formData, aiOutput, slug, name, image, email) => {
