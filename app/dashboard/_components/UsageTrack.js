@@ -39,14 +39,14 @@ const UsageTrack = () => {
 
   return (
     <div className="m-5">
-      <div className="bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 text-white rounded-lg p-3">
+      <div className="bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-white rounded-lg p-3">
         <h2 className="font-medium">Credits</h2>
         <div className="bg-white h-3 w-full rounded-full mt-3 flex items-center p-1">
           <div
             className={`h-1.5 rounded-full ${
               usage >= 10000
                 ? "animate-pulseRed"
-                : "bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                : "bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
             }`}
             style={{
               width: (usage / 10000) * 100 + "%",
@@ -56,14 +56,14 @@ const UsageTrack = () => {
         <h2 className={`text-sm my-1 ${ usage >= 10000?"text-red-800 animate-bounce pt-3":"text-white"}`}>{usage}/10,000 Credit Used</h2>
       </div>
 
-      <Button className="w-full my-3">
+      {/* <Button className="w-full my-3 text-white">
         {usage >= 10000 && (
           <span>
             <FaArrowUp className="animate-bounce" />
           </span>
         )}
         Upgrade
-      </Button>
+      </Button> */}
     </div>
   );
 };

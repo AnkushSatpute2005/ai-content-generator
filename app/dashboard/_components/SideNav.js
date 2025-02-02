@@ -45,8 +45,8 @@ const SideNav = () => {
       <div className="mt-3">
         {MenuList.map((menu,index)=>(
           <Link href={menu.path} key={index}>
-            <div  className={`flex gap-2 mb-2 p-3 hover:bg-gradient-to-br from-green-400 to-blue-600  focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800  font-medium rounded-lg px-5 py-2.5 hover:text-white  cursor-pointer 
-            ${path==menu.path&& "bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 text-white font-medium rounded-lg px-5 py-2.5 hover:text-white  cursor-pointer" }
+            <div  className={`flex gap-2 mb-2 p-3 hover:bg-gradient-to-br from-purple-600 to-blue-500  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg px-5 py-2.5 hover:text-white  cursor-pointer 
+            ${path==menu.path&& "bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-white font-medium rounded-lg px-5 py-2.5 hover:text-white  cursor-pointer" }
             `}>
                 <menu.icon className="h-7 w-7"/>
                 <h2 className="text-lg">{menu.name}</h2>

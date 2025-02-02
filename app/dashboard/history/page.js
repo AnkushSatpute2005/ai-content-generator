@@ -65,7 +65,7 @@ const History = () => {
           </td>
         </tr>
       </thead>
-      <tbody className="flex flex-col bg-gray-400 p-4 rounded-lg shadow-md">
+      <tbody className="flex flex-col bg-gray-300 p-4 rounded-lg shadow-md">
         <tr className="hidden sm:flex sm:flex-row items-center text-gray-700 text-sm font-bold uppercase">
           <td className="m-4 w-2/5">Template</td>
           <td className="m-4 line-clamp-3 w-3/5">AI Response</td>
@@ -76,7 +76,7 @@ const History = () => {
         {data.map((item) => (
           <tr
             key={item._id}
-            className="flex flex-col sm:flex-row justify-center items-center text-gray-600 bg-white hover:bg-gray-200 font-semibold"
+            className="flex flex-col sm:flex-row justify-center items-center text-gray-600 bg-white hover:bg-gray-50 font-semibold"
           >
             <td className="m-4 w-full sm:w-2/5 flex items-center gap-2">
               <Image
