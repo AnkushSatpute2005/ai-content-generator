@@ -10,12 +10,12 @@ import { UpdateCreditContext } from "../(context)/UpdateCreditUsageContext";
 const layout = ({ children }) => {
 
   const [usage, setUsage] = useState(0)
-  const [updateCreditUsageContext, setUpdateCreditUsageContext] = useState(0)
+  const [creditUsage,setCreditUsage] = useState(0)
 
   
   return (
     <TotalUsageContext.Provider value={{usage, setUsage}}>
-      <UpdateCreditContext.Provider value={{updateCreditUsageContext,setUpdateCreditUsageContext}}>
+      <UpdateCreditContext.Provider value={{creditUsage,setCreditUsage}}>
       <div className="bg-slate-100 ">
         <div className="md:w-64 hidden md:block fixed">
           <SideNav />

@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Loader2Icon } from "lucide-react";
+import { useSession, signIn, signOut, } from "next-auth/react";
 
 const History = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [aiOutputLen, setAiOutputLen] = useState(0);
+  const { data: session } = useSession();
 
   const getData = async () => {
     setLoading(true);
@@ -42,50 +44,10 @@ const History = () => {
 
   return (
     <div className="h-screen p-5">
-      <div className="flex justify-between items-center p-2">
-        
-        {/* <button onClick={getData}>Refresh Data</button> */}
-      </div>
-     {/* {!loading?<table>
-        <thead >
-          <tr className="flex justify-between items-center p-2">
-            <td>
-              <h1 className="text-3xl font-bold">History</h1>
-              <p className="text-gray-500">
-                Search your previously generated AI content
-              </p>
-            </td>
-            <td>
-              <Button onClick={getData} disabled={loading}>
-              {loading && <Loader2Icon className="animate-spin" />}Refresh Data
-              </Button>
-            </td>        
-          </tr>
-        
-        </thead>
-        <tbody className="flex flex-col bg-gray-400 p-4 rounded-lg shadow-md">
-          <tr className="flex flex-row  items-center text-gray-700 text-sm font-bold uppercase">
-            <td className="m-4 w-2/5"> Template</td>
-            <td className="m-4 line-clamp-3 w-3/5">Ai Responce</td>
-            <td className="m-4 w-1/5">Date</td>
-            <td className="m-4 w-1/5 ">Words</td>
-            <td className="m-4 w-1/5"></td>
-          </tr>
-          {data.map((item)=>(
-            <tr key={item._id} className="flex flex-row justify-center items-center text-gray-600 bg-white hover:bg-gray-200 font-semibold">
-            <td className="m-4 w-2/5 flex items-center gap-2"> <Image src={item.image} alt="image" height={30} width={30} />{item.name}</td>
-            <td className="m-4 line-clamp-3 w-3/5">{item.aiOutput}</td>
-            <td className="m-4 w-1/5">{formatDate(item.createdAt)}</td>
-            <td className="m-4 w-1/5 "> {item.aiOutput.length} W</td>
-            <td className="m-4 w-1/5">copy</td>
-          </tr>
-          ))}
-        </tbody>
-      </table>:<Loader2Icon className="animate-spin" />}
-       */}
-
+      
 <div className="overflow-x-auto">
-  {!loading ? (
+  
+  {!loading && session? (
     <table className="w-full">
       <thead>
         <tr className="flex justify-between items-center p-2">
@@ -136,7 +98,9 @@ const History = () => {
       </tbody>
     </table>
   ) : (
-    <Loader2Icon className="animate-spin" />
+    <div>{loading&&<Loader2Icon className="animate-spin" />}
+    <h1>User Not login...</h1>
+      </div>
   )}
 </div>
 

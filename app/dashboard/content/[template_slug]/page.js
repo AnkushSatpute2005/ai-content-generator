@@ -20,8 +20,7 @@ const CreateNewContent = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const { usage, setUsage } = useContext(TotalUsageContext);
-//  const [useUpdateCreditUsageContext, setUseUpdateCreditUsageContext] = useState(UpdateCreditUsageContext)
-const [updateCreditContext, setUpdateCreditContext] = useState(UpdateCreditContext)
+const {creditUsage,setCreditUsage} = useContext(UpdateCreditContext)
 
   const { template_slug } = useParams();
   const selectedTemplate = Templates.find(
@@ -64,8 +63,8 @@ const [updateCreditContext, setUpdateCreditContext] = useState(UpdateCreditConte
     }
 
     setLoading(false);
-    setUpdateCreditContext(Date.now());
-    // console.log(Date.now())
+    setCreditUsage(Date.now());
+    console.log(creditUsage)
   };
 
   const saveInDb = async (formData, aiOutput, slug, name, image, email) => {

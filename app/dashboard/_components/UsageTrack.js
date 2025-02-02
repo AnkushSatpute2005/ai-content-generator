@@ -8,7 +8,7 @@ import { FaArrowUp } from "react-icons/fa6";
 const UsageTrack = () => {
   const { usage, setUsage } = useContext(TotalUsageContext);
   // const [useUpdateCreditUsageContext, setUseUpdateCreditUsageContext] = useState(UpdateCreditUsageContext)
-  const [updateCreditContext, setUpdateCreditContext] = useState(UpdateCreditContext)
+  const {creditUsage,setCreditUsage} = useContext(UpdateCreditContext)
 
   // useEffect(() => {
   //   getData();
@@ -16,7 +16,7 @@ const UsageTrack = () => {
 
   useEffect(() => {
     getData()
-  }, [updateCreditContext&&usage])
+  }, [usage && creditUsage])
   
 
   const getData = async () => {
